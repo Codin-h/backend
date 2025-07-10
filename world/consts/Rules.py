@@ -7,14 +7,14 @@ from world.enums.WorldBlockTypes import WorldBlockTypes
 """
 world_rules = {
     WorldBlockTypes.BUILDINGS : {
-        Directions.NORTH: {
+        Directions.SOUTH: {
             WorldBlockTypes.BUILDINGS: [Rotations.ZERO, Rotations.HALF_PI, Rotations.PI, Rotations.NEGATIVE_HALF_PI],
             WorldBlockTypes.ROADS: [Rotations.ZERO, Rotations.PI],
             WorldBlockTypes.CORNERS: [ Rotations.HALF_PI, Rotations.PI],
             WorldBlockTypes.JUNCTIONS: [Rotations.ZERO, Rotations.HALF_PI, Rotations.PI, Rotations.NEGATIVE_HALF_PI],
             WorldBlockTypes.INTERSECTIONS: [Rotations.ZERO, Rotations.HALF_PI, Rotations.PI],
         },
-        Directions.SOUTH: {
+        Directions.NORTH: {
             WorldBlockTypes.BUILDINGS: [Rotations.ZERO],
             WorldBlockTypes.ROADS: [Rotations.ZERO, Rotations.PI],
             WorldBlockTypes.CORNERS: [ Rotations.NEGATIVE_HALF_PI, Rotations.ZERO],
@@ -33,21 +33,21 @@ world_rules = {
             WorldBlockTypes.ROADS: [Rotations.NEGATIVE_HALF_PI, Rotations.HALF_PI],
             WorldBlockTypes.CORNERS: [ Rotations.PI, Rotations.NEGATIVE_HALF_PI],
             WorldBlockTypes.JUNCTIONS: [Rotations.NEGATIVE_HALF_PI, Rotations.ZERO, Rotations.HALF_PI, Rotations.PI],
-            WorldBlockTypes.INTERSECTIONS: [Rotations.NEGATIVE_HALF_PI, Rotations.ZERO, Rotations.HALF_PI],
+            WorldBlockTypes.INTERSECTIONS: [Rotations.NEGATIVE_HALF_PI, Rotations.PI, Rotations.HALF_PI],
         },
         Directions.TOP: None,
         Directions.BOTTOM: None
     },
 
     WorldBlockTypes.ROADS : {
-        Directions.NORTH: {
+        Directions.SOUTH: {
             WorldBlockTypes.BUILDINGS: [Rotations.ZERO, Rotations.HALF_PI, Rotations.PI, Rotations.NEGATIVE_HALF_PI],
             WorldBlockTypes.ROADS: [Rotations.HALF_PI, Rotations.NEGATIVE_HALF_PI],
-            WorldBlockTypes.CORNERS: [ Rotations.ZERO, Rotations.PI ],
+            WorldBlockTypes.CORNERS: [ Rotations.ZERO, Rotations.NEGATIVE_HALF_PI ],
             WorldBlockTypes.JUNCTIONS: [],
-            WorldBlockTypes.INTERSECTIONS: [Rotations.PI],
+            WorldBlockTypes.INTERSECTIONS: [Rotations.NEGATIVE_HALF_PI],
         },
-        Directions.SOUTH: {
+        Directions.NORTH: {
             WorldBlockTypes.BUILDINGS: [Rotations.ZERO, Rotations.HALF_PI, Rotations.PI, Rotations.NEGATIVE_HALF_PI],
             WorldBlockTypes.ROADS: [Rotations.HALF_PI, Rotations.NEGATIVE_HALF_PI],
             WorldBlockTypes.CORNERS: [ Rotations.HALF_PI, Rotations.PI ],
@@ -57,14 +57,14 @@ world_rules = {
         Directions.WEST: {
             WorldBlockTypes.BUILDINGS: [],
             WorldBlockTypes.ROADS: [Rotations.HALF_PI, Rotations.NEGATIVE_HALF_PI],
-            WorldBlockTypes.CORNERS: [ Rotations.HALF_PI, Rotations.ZERO ],
+            WorldBlockTypes.CORNERS: [ Rotations.ZERO, Rotations.HALF_PI ],
             WorldBlockTypes.JUNCTIONS: [Rotations.ZERO, Rotations.HALF_PI, Rotations.PI, Rotations.NEGATIVE_HALF_PI],
-            WorldBlockTypes.INTERSECTIONS: [Rotations.ZERO, Rotations.HALF_PI, Rotations.PI],
+            WorldBlockTypes.INTERSECTIONS: [Rotations.ZERO, Rotations.HALF_PI, Rotations.NEGATIVE_HALF_PI],
         },
         Directions.EAST: {
             WorldBlockTypes.BUILDINGS: [],
             WorldBlockTypes.ROADS: [Rotations.HALF_PI, Rotations.NEGATIVE_HALF_PI],
-            WorldBlockTypes.CORNERS: [ Rotations.NEGATIVE_HALF_PI, Rotations.PI ],
+            WorldBlockTypes.CORNERS: [ Rotations.PI, Rotations.NEGATIVE_HALF_PI ],
             WorldBlockTypes.JUNCTIONS: [Rotations.ZERO, Rotations.HALF_PI, Rotations.PI, Rotations.NEGATIVE_HALF_PI],
             WorldBlockTypes.INTERSECTIONS: [Rotations.NEGATIVE_HALF_PI, Rotations.HALF_PI, Rotations.PI],
         },
@@ -73,14 +73,14 @@ world_rules = {
     },
 
     WorldBlockTypes.CORNERS : {
-        Directions.NORTH: {
+        Directions.SOUTH: {
             WorldBlockTypes.BUILDINGS: [Rotations.ZERO, Rotations.HALF_PI, Rotations.PI, Rotations.NEGATIVE_HALF_PI],
             WorldBlockTypes.ROADS: [Rotations.HALF_PI, Rotations.NEGATIVE_HALF_PI],
             WorldBlockTypes.CORNERS: [Rotations.ZERO, Rotations.NEGATIVE_HALF_PI],
             WorldBlockTypes.JUNCTIONS: [],
             WorldBlockTypes.INTERSECTIONS: [Rotations.NEGATIVE_HALF_PI],
         },
-        Directions.SOUTH: {
+        Directions.NORTH: {
             WorldBlockTypes.BUILDINGS: [],
             WorldBlockTypes.ROADS: [Rotations.ZERO, Rotations.PI],
             WorldBlockTypes.CORNERS: [Rotations.ZERO, Rotations.NEGATIVE_HALF_PI],
@@ -106,14 +106,14 @@ world_rules = {
     },
 
     WorldBlockTypes.JUNCTIONS : {
-        Directions.NORTH: {
+        Directions.SOUTH: {
             WorldBlockTypes.BUILDINGS: [Rotations.ZERO, Rotations.HALF_PI, Rotations.PI, Rotations.NEGATIVE_HALF_PI],
             WorldBlockTypes.ROADS: [Rotations.HALF_PI, Rotations.NEGATIVE_HALF_PI],
             WorldBlockTypes.CORNERS: [Rotations.ZERO, Rotations.NEGATIVE_HALF_PI],
             WorldBlockTypes.JUNCTIONS: [],
             WorldBlockTypes.INTERSECTIONS: [Rotations.NEGATIVE_HALF_PI],
         },
-        Directions.SOUTH: {
+        Directions.NORTH: {
             WorldBlockTypes.BUILDINGS: [Rotations.ZERO, Rotations.HALF_PI, Rotations.PI, Rotations.NEGATIVE_HALF_PI],
             WorldBlockTypes.ROADS: [Rotations.HALF_PI, Rotations.NEGATIVE_HALF_PI],
             WorldBlockTypes.CORNERS: [Rotations.PI, Rotations.HALF_PI],
@@ -139,14 +139,14 @@ world_rules = {
     },
 
     WorldBlockTypes.INTERSECTIONS : {
-        Directions.NORTH: {
+        Directions.SOUTH: {
             WorldBlockTypes.BUILDINGS: [Rotations.ZERO, Rotations.HALF_PI, Rotations.PI, Rotations.NEGATIVE_HALF_PI],
             WorldBlockTypes.ROADS: [Rotations.HALF_PI, Rotations.NEGATIVE_HALF_PI],
             WorldBlockTypes.CORNERS: [Rotations.ZERO, Rotations.NEGATIVE_HALF_PI],
             WorldBlockTypes.JUNCTIONS: [],
             WorldBlockTypes.INTERSECTIONS: [Rotations.NEGATIVE_HALF_PI],
         },
-        Directions.SOUTH: {
+        Directions.NORTH: {
             WorldBlockTypes.BUILDINGS: [Rotations.ZERO, Rotations.HALF_PI, Rotations.PI, Rotations.NEGATIVE_HALF_PI],
             WorldBlockTypes.ROADS: [Rotations.HALF_PI, Rotations.NEGATIVE_HALF_PI],
             WorldBlockTypes.CORNERS: [Rotations.PI, Rotations.HALF_PI],
@@ -158,7 +158,7 @@ world_rules = {
             WorldBlockTypes.ROADS: [Rotations.HALF_PI, Rotations.NEGATIVE_HALF_PI],
             WorldBlockTypes.CORNERS: [Rotations.ZERO, Rotations.HALF_PI],
             WorldBlockTypes.JUNCTIONS: [Rotations.ZERO, Rotations.HALF_PI, Rotations.PI, Rotations.NEGATIVE_HALF_PI],
-            WorldBlockTypes.INTERSECTIONS: [Rotations.PI, Rotations.NEGATIVE_HALF_PI, Rotations.HALF_PI],
+            WorldBlockTypes.INTERSECTIONS: [Rotations.ZERO, Rotations.NEGATIVE_HALF_PI, Rotations.HALF_PI],
         },
         Directions.EAST: {
             WorldBlockTypes.BUILDINGS: [Rotations.ZERO, Rotations.HALF_PI, Rotations.PI, Rotations.NEGATIVE_HALF_PI],

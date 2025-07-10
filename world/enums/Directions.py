@@ -1,9 +1,9 @@
 from enum import Enum
 
 class Directions(Enum):
-    NORTH = 0
+    SOUTH = 0
     EAST = 1
-    SOUTH = 2
+    NORTH = 2
     WEST = 3
     TOP = 4
     BOTTOM = 5
@@ -14,13 +14,13 @@ class Directions(Enum):
             return Directions.EAST
         elif coordsA[0] > coordsB[0]:
             return Directions.WEST
-        elif coordsA[1] < coordsB[1]:
-            return Directions.SOUTH
-        elif coordsA[1] > coordsB[1]:
-            return Directions.NORTH
         elif coordsA[2] < coordsB[2]:
-            return Directions.TOP
+            return Directions.SOUTH
         elif coordsA[2] > coordsB[2]:
+            return Directions.NORTH
+        elif coordsA[1] < coordsB[1]:
+            return Directions.TOP
+        elif coordsA[1] > coordsB[1]:
             return Directions.BOTTOM
         else:
             raise ValueError(f"Unable to find the direction from A:{coordsA} to B:{coordsB}")

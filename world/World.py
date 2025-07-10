@@ -26,32 +26,24 @@ class World:
         wb = WorldBlock(rot, start, block_type, subtype)
         self.placed[start] = wb
         # add neighbors to frontier
+        print(wb)
         for n in self._get_neighbours(start):
             self.frontier[n] = PossibleWorldBlock()
+
+            incoming = Directions.get_direction_from_A_to_B(start, n)
+            rules = self.placed[start].get_building_rules(incoming)
+            if incoming == Directions.TOP or incoming == Directions.BOTTOM:
+                continue  # TODO handle vertical connections
+
+            self.frontier[n].update(rules)
 
     def generate_world(self):
         """
         Run collapse until all reachable positions are filled.
         """
         while self.frontier:
-            # print("Frontier, Placed:")
-            # pprint(self.frontier)
-            # pprint(self.placed)
-
             # pick cell with lowest entropy
             coord, pwb = min(self.frontier.items(), key=lambda item: item[1].get_entropy())
-            # print(f"Collapsing block at {coord} with entropy {pwb.get_entropy()}")
-
-            # update possibilities based on placed neighbors
-            for dx, dy, dz in directions:
-                nbr = (coord[0] + dx, coord[1] + dy, coord[2] + dz)
-                if nbr in self.placed:
-                    # get rules from neighbor pointing towards coord
-                    incoming = Directions.get_direction_from_A_to_B(nbr, coord)
-                    rules = self.placed[nbr].get_building_rules(incoming)
-                    if incoming == Directions.TOP or incoming == Directions.BOTTOM:
-                        continue
-                    pwb.update(rules)
 
             # collapse the block
             btype, subtype, rot = pwb.collapse()
@@ -60,9 +52,20 @@ class World:
             del self.frontier[coord]
 
             # add new neighbors to frontier
+            print(wb)
             for n in self._get_neighbours(coord):
-                if n not in self.placed and n not in self.frontier:
+                if  n  in self.placed:
+                    continue
+                if n not in self.frontier:
                     self.frontier[n] = PossibleWorldBlock()
+
+                # get rules from coord pointing towards neighbor
+                incoming = Directions.get_direction_from_A_to_B(coord, n)
+                rules = self.placed[coord].get_building_rules(incoming)
+                if incoming == Directions.TOP or incoming == Directions.BOTTOM:
+                    continue # TODO handle vertical connections
+
+                self.frontier[n].update(rules)
 
     def _get_neighbours(self, coord: tuple[int, int, int]) -> list[tuple[int,int,int]]:
         """
@@ -72,15 +75,14 @@ class World:
         out = []
         for dx,dy,dz in directions:
             nx, ny, nz = x+dx, y+dy, z+dz
-            if 0 <= nx < self.X and 0 <= ny < self.Y and 0 <= nz < self.Z:
+            if 0 <= nx < self.X and 0 <= ny < self.Y and 0 <= nz < self.Z and (nx, ny, nz) not in self.placed:
                 out.append((nx,ny,nz))
-                # print(f"Adding neighbor: {nx, ny, nz}")
         return out
 
 if __name__ == "__main__":
-    world = World((100, 1, 100))
+    world = World((10, 1, 10))
     world.generate_world()
 
     # Print final world state
     print("Final World Blocks:")
-    pprint(world.placed)
+    pprint(world.placed.values())

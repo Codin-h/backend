@@ -1,7 +1,8 @@
+import pprint
 from copy import deepcopy
-from pprint import pprint
 
 from enums import Directions
+from world.consts.Others import DIRECTION_MAP, ROTATION_ADD
 from world.consts.Rules import *
 
 class WorldBlock:
@@ -12,37 +13,36 @@ class WorldBlock:
         self.subtype = subtype
 
     def get_building_rules(self, direction: Directions):
-        """
-        Returns the building rule in the given direction, accounting for block rotation.
-        """
-        base_rules = world_rules[self.world_block_type]
-        rotated_rules = self._rotate_rules(self.rotation.value, base_rules)
-        return rotated_rules.get(direction)
+        """Returns neighbor rules for given world direction, accounting for rotation"""
+        # Handle top/bottom immediately
+        if direction in (Directions.TOP, Directions.BOTTOM):
+            return None
 
-    def _rotate_rules(self, steps: int, rules_dict: dict) -> dict:
-        """
-        Rotates the rules dictionary counterclockwise by 90 degrees 'steps' times.
-        """
-        rules = deepcopy(rules_dict)
-        for _ in range(steps):
-            rules = self._rotate90_ccw(rules)
-        return rules
+        # Get original direction relative to unrotated block
+        original_dir = DIRECTION_MAP[self.rotation].get(direction)
+        if original_dir is None:
+            return None
 
-    @staticmethod
-    def _rotate90_ccw(rules_dict: dict) -> dict:
-        """
-        Rotates the direction keys in the rules dictionary 90 degrees counter-clockwise.
-        """
-        rotation_map = {
-            Directions.NORTH: Directions.WEST,
-            Directions.WEST: Directions.SOUTH,
-            Directions.SOUTH: Directions.EAST,
-            Directions.EAST: Directions.NORTH,
-            Directions.TOP: Directions.TOP,
-            Directions.BOTTOM: Directions.BOTTOM
-        }
+        # Get base rules for this block type and original direction
+        base_rules = world_rules.get(self.world_block_type, {}).get(original_dir)
+        if base_rules is None:
+            return None
 
-        return {rotation_map.get(dir_, dir_): val for dir_, val in rules_dict.items()}
+        # Adjust neighbor rotations for current block's rotation
+        adjusted_rules = {}
+        for neighbor_type, rotations in base_rules.items():
+            adjusted_rots = []
+            for rot in rotations:
+                abs_rot = ROTATION_ADD[self.rotation].get(rot)
+                if abs_rot is not None:
+                    adjusted_rots.append(abs_rot)
+            adjusted_rules[neighbor_type] = adjusted_rots
+
+        return adjusted_rules
+
+
+
 
     def __repr__(self):
-        return f"WorldBlock(coord={self.coord}, type={self.world_block_type.name}, subtype={self.subtype}, rotation={self.rotation.name})"
+        # return f"WorldBlock(coord={self.coord}, type={self.world_block_type.name}, subtype={self.subtype}, rotation={self.rotation.name})"
+        return f"modelFromData( ModelTypes.{self.subtype}, Rotations.{self.rotation.name}, new Vector3({self.coord[0] *2}, {self.coord[1]*2}, {self.coord[2]*2}))"
