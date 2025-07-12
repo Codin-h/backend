@@ -3,32 +3,32 @@
 """
 
 BUILDINGS = {
-    "total_weight": 5.0,
-    "BUILDING_A": 1.0,
-    "BUILDING_B": 1.0,
-    "BUILDING_C": 1.0,
-    "BUILDING_D": 1.0,
-    "BUILDING_E": 1.0,
-    "BUILDING_F": 1.0,
-    "BUILDING_G": 1.0,
-    "BUILDING_H": 1.0,
+    "total_weight": 1.0,
+    "BUILDING_A": 10.0,
+    "BUILDING_B": 10.0,
+    "BUILDING_C": 10.0,
+    "BUILDING_D": 10.0,
+    "BUILDING_E": 10.0,
+    "BUILDING_F": 10.0,
+    "BUILDING_G": 10.0,
+    "BUILDING_H": 10.0,
 }
 
 ROADS = {
-    "total_weight": 5.0,
+    "total_weight": 1.0,
     "ROAD_A": 1.0,
     "ROAD_B": 1.0,
 }
 
 CORNERS = {
-    "total_weight": 3.0,
+    "total_weight": 1.0,
     "CORNER_A": 1.0,
     "CORNER_B": 1.0,
 }
 
 JUNCTIONS = {
     "total_weight": 1.0,
-    "JUNCTION": 2.0,
+    "JUNCTION": 1.0,
 }
 
 INTERSECTIONS = {

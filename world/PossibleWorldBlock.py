@@ -12,6 +12,7 @@ class PossibleWorldBlock:
         self._compute_entropy()
 
     def update(self, rules: dict):
+        safe = deepcopy(self.possible_blocks)
 
         for world_block_type, rotations in rules.items():
             if world_block_type in self.possible_blocks:
@@ -20,6 +21,26 @@ class PossibleWorldBlock:
                     if rotation not in rotations
                 ]
         self._compute_entropy()
+        if self.entropy == 0:
+            self.possible_blocks = safe
+            return False
+        else:
+            return True
+
+    def remove_from_possible(self, btype, subtype, rot):
+        """
+        Remove a specific subtype and rotation from the possible blocks.
+        """
+        if btype in self.possible_blocks:
+            if rot in self.possible_blocks[btype]:
+                self.possible_blocks[btype].remove(rot)
+            # If no rotations left, remove the block type entirely
+            if not self.possible_blocks[btype]:
+                del self.possible_blocks[btype]
+        self._compute_entropy()
+        print(f"Removed {btype.name} subtype '{subtype}' with rotation {rot.name}. Remaining possible blocks: {self.possible_blocks}")
+        print(f"Entropy after removal: {self.entropy}")
+
 
     def _compute_entropy(self):
 

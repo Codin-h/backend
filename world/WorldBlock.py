@@ -40,7 +40,9 @@ class WorldBlock:
 
         return adjusted_rules
 
-
+    def get_data(self):
+        """Returns a tuple of (world_block_type, subtype, rotation)"""
+        return self.world_block_type, self.subtype, self.rotation
 
 
     def __repr__(self):
