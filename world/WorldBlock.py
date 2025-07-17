@@ -2,8 +2,8 @@ import pprint
 from copy import deepcopy
 
 from enums import Directions
-from world.consts.Others import DIRECTION_MAP, ROTATION_ADD
-from world.consts.Rules import *
+from consts.Others import DIRECTION_MAP, ROTATION_ADD
+from consts.Rules import *
 
 class WorldBlock:
     def __init__(self, rotation: Rotations, coord: tuple[int, int, int], world_block_type: WorldBlockTypes, subtype:str):

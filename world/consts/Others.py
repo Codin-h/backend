@@ -1,6 +1,6 @@
-from world.enums.Directions import Directions
-from world.enums.Rotations import Rotations
-from world.enums.WorldBlockTypes import WorldBlockTypes
+from enums.Directions import Directions
+from enums.Rotations import Rotations
+from enums.WorldBlockTypes import WorldBlockTypes
 
 directions = [
     (1, 0, 0), # right

@@ -1,5 +1,5 @@
 from enum import Enum
-import world.consts.WorldBlockSubType as subType
+import consts.WorldBlockSubType as subType
 
 class WorldBlockTypes(Enum):
     BUILDINGS = subType.BUILDINGS
@@ -8,9 +8,19 @@ class WorldBlockTypes(Enum):
     JUNCTIONS = subType.JUNCTIONS
     INTERSECTIONS = subType.INTERSECTIONS
 
-    @staticmethod
-    def get_probability_for(block_type: 'WorldBlockTypes', subtype_name: str) -> float:
-        block_weights = block_type.value
-        total_weight = block_weights["total_weight"]
-        subtype_weight = block_weights.get(subtype_name, 0.0)
-        return subtype_weight / total_weight if total_weight > 0 else 0.0
+    staticmethod
+    def get_total_wheight_for_type(type: 'WorldBlockTypes') -> float:
+        """Returns a list of all WorldBlockTypes"""
+        if type == WorldBlockTypes.BUILDINGS:
+            return sum(subType.BUILDINGS.values())
+        elif type == WorldBlockTypes.ROADS:
+            return sum(subType.ROADS.values())
+        elif type == WorldBlockTypes.CORNERS:
+            return sum(subType.CORNERS.values())
+        elif type == WorldBlockTypes.JUNCTIONS:
+            return sum(subType.JUNCTIONS.values())
+        elif type == WorldBlockTypes.INTERSECTIONS:
+            return sum(subType.INTERSECTIONS.values())
+        else:
+            raise ValueError(f"Unknown WorldBlockType: {type}")
+        

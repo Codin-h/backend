@@ -1,6 +1,6 @@
-from world.enums.Directions import Directions
-from world.enums.Rotations import Rotations
-from world.enums.WorldBlockTypes import WorldBlockTypes
+from enums.Directions import Directions
+from enums.Rotations import Rotations
+from enums.WorldBlockTypes import WorldBlockTypes
 
 """
     foreach type there is a number of rules for each direction and each type of block

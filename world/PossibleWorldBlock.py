@@ -3,7 +3,7 @@ import random
 from copy import deepcopy
 from pprint import pprint
 
-from world.consts.Others import *
+from consts.Others import *
 
 
 class PossibleWorldBlock:
@@ -43,37 +43,23 @@ class PossibleWorldBlock:
 
 
     def _compute_entropy(self):
-
-        total_global_weight = 0.0
-        # First pass: compute total weight of all possible tiles (subtypes * rotations)
+        """ Soma total e para cada """""
+        total = 0.0
         for block_type, rotations in self.possible_blocks.items():
-            weight_data = block_type.value
-            for subtype, weight_val in weight_data.items():
-                if subtype == "total_weight":
+            total += WorldBlockTypes.get_total_wheight_for_type(block_type) * len(rotations)
+        temp_entropy = 0.0
+        if total == 0:
+            self.entropy = 0.0
+        else:
+            for block_type, rotations in self.possible_blocks.items():
+                if not rotations:
                     continue
-                # Multiply subtype weight by number of rotations
-                total_global_weight += weight_val * len(rotations)
+                weight = WorldBlockTypes.get_total_wheight_for_type(block_type)
+                temp_entropy -= math.log2(weight * len(rotations) / total) * (weight * len(rotations) / total)
+                print(temp_entropy)
+        self.entropy = temp_entropy
+        print(f"Computed entropy: {self.entropy}")
 
-        # Handle case with no possible tiles
-        if total_global_weight <= 0:
-            self.entropy = 0
-            return
-
-        entropy = 0.0
-        # Second pass: compute entropy contributions
-        for block_type, rotations in self.possible_blocks.items():
-            weight_data = block_type.value
-            for subtype, weight_val in weight_data.items():
-                if subtype == "total_weight" or weight_val <= 0:
-                    continue
-
-                count = len(rotations)  # Number of rotations for this block
-                p = (weight_val * count) / total_global_weight  # Global probability
-
-                if p > 0:
-                    entropy -= p * math.log2(p)  # Entropy contribution
-
-        self.entropy = entropy
 
     def get_entropy(self) -> float:
         return self.entropy
@@ -95,8 +81,9 @@ class PossibleWorldBlock:
 
         # Get subtype and weights
         weight_data =  block_type.value
-        subtypes = [k for k in weight_data.keys() if k != "total_weight"]
+        subtypes = [k for k in weight_data.keys()]
         weights = [weight_data[k] for k in subtypes]
+        print(f"Subtypes: {subtypes}, Weights: {weights}")
 
         # Weighted random choice of subtype
         chosen_subtype = random.choices(subtypes, weights=weights, k=1)[0]

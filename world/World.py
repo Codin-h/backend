@@ -1,10 +1,10 @@
 import random
 from pprint import pprint
 
-from world.PossibleWorldBlock import PossibleWorldBlock
-from world.WorldBlock import WorldBlock
-from world.enums.Directions import Directions
-from world.consts.Others import directions
+from PossibleWorldBlock import PossibleWorldBlock
+from WorldBlock import WorldBlock
+from enums.Directions import Directions
+from consts.Others import directions
 
 class World:
     def __init__(self, size: tuple[int, int, int] = (10, 1, 10)):
@@ -120,7 +120,7 @@ class World:
         return out
 
 if __name__ == "__main__":
-    world = World((5, 1, 5))
+    world = World((100, 1, 100))
     world.generate_world()
 
     # Print final world state
